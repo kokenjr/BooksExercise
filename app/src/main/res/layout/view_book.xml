@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginStart="@dimen/card_start_margin"
+    android:layout_marginEnd="@dimen/card_start_margin"
+    android:layout_marginBottom="@dimen/card_overlap_margin"
+    android:paddingStart="@dimen/card_start_padding"
+    android:paddingEnd="@dimen/card_start_padding"
+    android:paddingTop="@dimen/card_top_padding"
+    android:paddingBottom="@dimen/card_bottom_padding"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_bg"
+    android:id="@+id/rlBook">
+    <ImageView
+        android:id="@+id/ivBookCover"
+        android:layout_width="@dimen/book_cover_dimen"
+        android:layout_height="@dimen/book_cover_dimen"
+        android:scaleType="centerCrop"
+        android:layout_marginRight="@dimen/card_start_padding"
+        android:background="@color/grey"/>
+        <!--android:src="@drawable/profile_placeholder"-->
+        <!--/>-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/ivBookCover"
+        android:text="Book Title"
+        android:id="@+id/tvBookTitle"
+        style="@style/BookTitle"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/ivBookCover"
+        android:text="Author"
+        android:layout_below="@+id/tvBookTitle"
+        android:id="@+id/tvAuthor"
+        style="@style/Author"/>
+
+</RelativeLayout>

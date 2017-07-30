@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Card Background -->
+    <dimen name="card_bg_bottom_margin">8dp</dimen>
+    <dimen name="card_corner_radius">10dp</dimen>
+
+
+    <!-- Book Cover Background -->
+    <dimen name="book_cover_bg_corner_radius">3dp</dimen>
+    <dimen name="book_cover_bg_stroke_width">3dp</dimen>
+
+    <!-- Card -->
+    <dimen name="card_start_margin">15dp</dimen>
+    <dimen name="card_overlap_margin">-25dp</dimen>
+    <dimen name="card_start_padding">10dp</dimen>
+    <dimen name="book_cover_dimen">55dp</dimen>
+    <dimen name="card_top_margin">15dp</dimen>
+    <dimen name="card_top_padding">20dp</dimen>
+    <dimen name="card_bottom_padding">25dp</dimen>
+
+    <!-- Loading Dialog -->
+    <dimen name="loading_bar_dimen">50dp</dimen>
+
+
+
+</resources>
