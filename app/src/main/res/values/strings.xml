@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BooksExercise</string>
+    <string name="error_getting_books">An error occurred, attempting to load clips.</string>
 </resources>

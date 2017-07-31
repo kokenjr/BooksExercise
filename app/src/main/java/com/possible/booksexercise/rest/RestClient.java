@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestClient {
     private ApiService apiService;
 
-    public RestClient(Context context) {
+    public RestClient() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.REST_ENDPOINT_URL)
                 .addConverterFactory(GsonConverterFactory.create())

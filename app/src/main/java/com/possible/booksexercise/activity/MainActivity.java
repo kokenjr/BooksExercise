@@ -1,11 +1,15 @@
 package com.possible.booksexercise.activity;
 
 import android.app.ProgressDialog;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewTreeObserver;
 
 import com.possible.booksexercise.R;
@@ -34,7 +38,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RestClient restClient = new RestClient(getApplicationContext());
+
+        final CoordinatorLayout clMain = findViewById(R.id.clMain);
+
+        RestClient restClient = new RestClient();
         Call<List<Book>> call = restClient.getApiService().getBooks();
         showLoadingProgressDialog();
         call.enqueue(new Callback<List<Book>>() {
@@ -92,18 +99,27 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
+                } else {
+                    showError(clMain, getString(R.string.error_getting_books));
                 }
             }
 
             @Override
             public void onFailure(Call<List<Book>> call, Throwable t) {
                 dismissProgressDialog();
+                showError(clMain, t.getMessage());
             }
         });
     }
 
-    private void pageBooks() {
+    protected void showError(View view, String message) {
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+        View sbView = snackbar.getView();
+        sbView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.red));
+        snackbar.show();
+    }
 
+    private void pageBooks() {
         if (bookIndex <= books.size()) {
             int endIndex = bookIndex + 20;
             if (endIndex > books.size()) {
