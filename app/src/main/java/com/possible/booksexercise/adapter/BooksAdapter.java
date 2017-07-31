@@ -52,6 +52,11 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder>{
 
     }
 
+    public void clear() {
+        this.books.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_book, parent, false);

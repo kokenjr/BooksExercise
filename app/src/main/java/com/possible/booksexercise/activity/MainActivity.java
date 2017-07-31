@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,15 +33,31 @@ public class MainActivity extends AppCompatActivity {
     private List<Book> books;
     private List<Book> pagedBooks = new ArrayList<>();
     private int bookIndex = 0;
+    private BooksAdapter booksAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                books = null;
+                bookIndex = 0;
+                if (booksAdapter != null)
+                    booksAdapter.clear();
+                swipeRefreshLayout.setRefreshing(false);
+                getBooks();
+            }
+        });
 
+        getBooks();
+    }
+
+    private void getBooks() {
         final CoordinatorLayout clMain = findViewById(R.id.clMain);
-
         RestClient restClient = new RestClient();
         Call<List<Book>> call = restClient.getApiService().getBooks();
         showLoadingProgressDialog();
@@ -52,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                     books = response.body();
                     if (books != null && !books.isEmpty()){
                         pageBooks();
-                        final BooksAdapter booksAdapter = new BooksAdapter(pagedBooks, getApplicationContext());
+                        booksAdapter = new BooksAdapter(pagedBooks, getApplicationContext());
                         final LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                         final RecyclerView rvBooks = findViewById(R.id.rvBooks);
@@ -87,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                                             rvBooks.post(new Runnable() {
                                                 public void run() {
                                                     booksAdapter.notifyDataSetChanged();
+                                                    //TODO: Prefer to use notifyItemRangeInserted, but seems to cause issue when scrolling
 //                                                    booksAdapter.notifyItemRangeInserted(initialSize, updatedSize);
                                                 }
                                             });
